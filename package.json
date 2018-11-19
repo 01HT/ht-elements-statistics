@@ -1,0 +1,11 @@
+{
+  "name": "@01ht/ht-elements-statistics",
+  "version": "1.0.0",
+  "main": "ht-elements-statistics.js",
+  "repository": "01ht/ht-elements-statistics",
+  "author": "01HT Ltd",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@polymer/lit-element": "^0.6.1"
+  }
+}
