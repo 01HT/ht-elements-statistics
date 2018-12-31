@@ -86,15 +86,15 @@ class HTElementsStatisticsItemDetails extends LitElement {
           data => html`<div class="item">
               <div>
                 <a class="image" href="/item/${data.nameInURL}/${data.itemId}">
-                    <ht-image placeholder=${
+                    <ht-image placeholder="${
                       window.cloudinaryURL
                     }/image/upload/c_scale,f_auto,w_60/v${data.image.version}/${
             data.image.public_id
-          }.jpg image=${
+          }.jpg" image="${
             window.cloudinaryURL
           }/image/upload/c_scale,f_auto,w_480/v${data.image.version}/${
             data.image.public_id
-          }.jpg size="16x9"></ht-image>
+          }.jpg" size="16x9"></ht-image>
                 </a>
               </div>
               <div class="info">
