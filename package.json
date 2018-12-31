@@ -12,7 +12,7 @@
     "@polymer/paper-button": "^3.0.1",
     "@01ht/ht-image": "01ht/ht-image",
     "@01ht/ht-date": "01ht/ht-date",
-    "@01ht/ht-spinner": "01ht/ht-date",
+    "@01ht/ht-spinner": "01ht/ht-spinner",
     "@vaadin/vaadin-grid": "^5.2.3"
   }
 }
