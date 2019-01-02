@@ -13,6 +13,7 @@
     "@01ht/ht-image": "01ht/ht-image",
     "@01ht/ht-date": "01ht/ht-date",
     "@01ht/ht-spinner": "01ht/ht-spinner",
+    "@01ht/ht-elements-orders": "01ht/ht-elements-orders",
     "@vaadin/vaadin-grid": "^5.2.3"
   }
 }

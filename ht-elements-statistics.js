@@ -11,9 +11,10 @@ import "@01ht/ht-date";
 import "@vaadin/vaadin-grid/vaadin-grid.js";
 
 import "./ht-elements-statistics-empty.js";
-import "./ht-elements-statistics-item-details.js";
 import "./ht-elements-statistics-grid-styles.js";
 import "./ht-elements-statistics-common.js";
+
+import "@01ht/ht-elements-orders/ht-elements-orders-item-details.js";
 
 class HTElementsStatistics extends LitElement {
   render() {
@@ -253,7 +254,7 @@ class HTElementsStatistics extends LitElement {
   rowDetailsRenderer(root, column, rowData) {
     let htmlData = ``;
     if (rowData.item.items) {
-      htmlData = html`<div class="details"><ht-elements-statistics-item-details .items=${
+      htmlData = html`<div class="details"><ht-elements-orders-item-details .items=${
         rowData.item.items
       }></ht-elements-orders-item-details></div>`;
     }
