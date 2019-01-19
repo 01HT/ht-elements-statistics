@@ -77,7 +77,7 @@ class HTElementsStatisticsCommon extends LitElement {
         }
         </div>
         ${
-          opened
+          opened && !payoutOrder
             ? html`<ht-elements-statistics-payout ?opened=${opened} .orderCreating=${orderCreating}></ht-elements-statistics-payout>`
             : null
         }
@@ -153,7 +153,7 @@ class HTElementsStatisticsCommon extends LitElement {
   }
 
   set items(items) {
-    this.opened = false;
+    // this.opened = false;
     let data = {
       sales: 0,
       payout: 0,
