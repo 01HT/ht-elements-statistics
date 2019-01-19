@@ -8,8 +8,7 @@ import "@01ht/ht-spinner";
 
 class HTElementsStatistics extends LitElement {
   render() {
-    const { userData, orderCreating, loading } = this;
-    const ready = userData && userData.payoutData && userData.payoutData.ready;
+    const { userData, orderCreating, loading, contractActive } = this;
     return html`
     ${SharedStyles}
     <style>
@@ -84,26 +83,28 @@ class HTElementsStatistics extends LitElement {
             <h2>Создание заказа на выплату</h2>
             <p>Выплаты осуществляются с 1 по 10 число месяца. (<a href="https://docs.elements.01.ht/guide/payout/#наnоги-и-страховые-взносы" target="_blank" rel="noopener">о выплатах</a>)</p>
             <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
-              ready ? "check" : "close"
-            }"></iron-icon><div><a href="/account/payout">Настройки выплат</a> указаны</div>
+              contractActive ? "check" : "close"
+            }"></iron-icon><div><a href="/account/contract">Агентский договор</a></div>
             </div>
-
+            <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
+              userData.payoutData ? "check" : "close"
+            }"></iron-icon><div><a href="/account/payout">Настройки выплат</a></div>
+            </div>
             ${
-              ready
+              userData.payoutData
                 ? html`
               <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
                 this.checkBalance(userData) ? "check" : "close"
-              }"></iron-icon>Текущий баланс больше $${
-                    userData.payoutData.swift ? "500" : "50"
+              }"></iron-icon>Баланс больше $${
+                    userData.payoutData.payoutType === "swift" ? "500" : "50"
                   }</div>
               `
                 : null
             }
             <div id="actions">
-                <paper-button raised ?disabled=${!ready ||
-                  !this.checkBalance(
-                    userData
-                  )} ?hidden=${orderCreating} @click=${_ => {
+                <paper-button raised ?disabled=${!contractActive ||
+                  !this.checkBalance(userData) ||
+                  !userData.payoutData} ?hidden=${orderCreating} @click=${_ => {
               this.createPayoutOrder();
             }}>Создать
                 </paper-button>
@@ -136,6 +137,9 @@ class HTElementsStatistics extends LitElement {
       },
       loading: {
         type: Boolean
+      },
+      contractActive: {
+        type: Boolean
       }
     };
   }
@@ -147,25 +151,44 @@ class HTElementsStatistics extends LitElement {
     }
   }
 
+  constructor() {
+    super();
+    this.userData = {};
+  }
+
   checkBalance(userData) {
-    if (userData && userData.payoutData && userData.payoutData.ready) {
+    if (userData && userData.payoutData) {
       if (
-        (userData.payoutData.swift && userData.balance >= 500) ||
-        (!userData.payoutData.swift && userData.balance >= 50)
+        (userData.payoutData.payoutType === "swift" &&
+          userData.balance >= 500) ||
+        (!userData.payoutData.payoutType !== "swift" && userData.balance >= 50)
       )
         return true;
     }
     return false;
   }
 
-  async checkСonditions() {
-    let userId = firebase.auth().currentUser.uid;
-    let userData = await this.getUserData(userId);
-    this.userData = userData;
-    this.loading = false;
+  async _getLastContract(userId) {
+    try {
+      let snapshot = await firebase
+        .firestore()
+        .collection("contracts")
+        .where("userId", "==", userId)
+        .orderBy("created", "desc")
+        .limit(1)
+        .get();
+      if (snapshot.empty) return false;
+      let contractData;
+      await snapshot.forEach(doc => {
+        contractData = doc.data();
+      });
+      return contractData;
+    } catch (error) {
+      throw new Error("_getLastContract: " + error.message);
+    }
   }
 
-  async getUserData(userId) {
+  async _getUserData(userId) {
     let querySnapshot = await window.firebase
       .firestore()
       .collection("users")
@@ -173,6 +196,18 @@ class HTElementsStatistics extends LitElement {
       .get();
     let userData = querySnapshot.data();
     return userData;
+  }
+
+  async checkСonditions() {
+    let userId = firebase.auth().currentUser.uid;
+    this.userData = await this._getUserData(userId);
+    let contractData = await this._getLastContract(userId);
+    if (contractData && contractData.active) {
+      this.contractActive = true;
+    } else {
+      this.contractActive = false;
+    }
+    this.loading = false;
   }
 
   async createPayoutOrder() {
