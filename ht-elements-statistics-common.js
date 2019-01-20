@@ -97,7 +97,7 @@ class HTElementsStatisticsCommon extends LitElement {
                 data.ndfl
               }</span></div>
               <div class="title">Страховые взносы</div>
-              <div><span class="item">ПФР (20%) : </span><span class="value">$${
+              <div><span class="item">ПФР (22%) : </span><span class="value">$${
                 data.pfr
               }</span></div>
               <div><span class="item">ФОМС (5.1%) : </span><span class="value">$${
