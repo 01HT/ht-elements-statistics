@@ -40,7 +40,7 @@ class HTElementsStatistics extends LitElement {
       }
 
       ht-elements-statistics-common {
-        margin-top: 24px;
+        margin-top: 16px;
       }
 
       #container {
@@ -114,13 +114,13 @@ class HTElementsStatistics extends LitElement {
                 <vaadin-grid .items=${items} .rowDetailsRenderer="${
               this.rowDetailsRenderer
             }">
-                <vaadin-grid-column width="60px" header="Сумма" .renderer="${
+                <vaadin-grid-column width="100px" header="Сумма" .renderer="${
                   this.amountRenderer
                 }"></vaadin-grid-column>
                 <vaadin-grid-column width="100px"  header="Тип" .renderer="${
                   this.typeRenderer
                 }"></vaadin-grid-column>
-                <vaadin-grid-column width="120px" header="Дата" .renderer="${
+                <vaadin-grid-column width="130px" header="Дата" .renderer="${
                   this.dateRenderer
                 }"></vaadin-grid-column>
                 <vaadin-grid-column width="160px" header="Детали" .renderer="${
@@ -180,13 +180,15 @@ class HTElementsStatistics extends LitElement {
     switch (transactiontypeId) {
       // sale
       case "58i5MxKKq7Mvfvmz4CCA":
-        htmlData = html`<span class="amount green">+ $${
-          rowData.item.amount
+        htmlData = html`<span class="amount green">+ ₽${
+          rowData.item.authorReward
         }</span>`;
         break;
       // payout
       case "23cMmVLxXIGQZrHHHoTG":
-        htmlData = html`<span class="amount">- $${rowData.item.amount}</span>`;
+        htmlData = html`<span class="amount">- ₽${
+          rowData.item.totalAuthorReward
+        }</span>`;
         break;
     }
     render(htmlData, root);

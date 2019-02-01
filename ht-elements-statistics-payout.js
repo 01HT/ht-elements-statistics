@@ -36,13 +36,13 @@ class HTElementsStatistics extends LitElement {
       #container {
         padding: 16px;
         box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .item {
         display:flex;
         align-items:center;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
       }
 
       [icon="ht-elements-statistics-payout:check"] {
@@ -95,8 +95,10 @@ class HTElementsStatistics extends LitElement {
                 ? html`
               <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
                 this.checkBalance(userData) ? "check" : "close"
-              }"></iron-icon>Баланс больше $${
-                    userData.payoutData.payoutType === "swift" ? "500" : "50"
+              }"></iron-icon>Баланс больше ${
+                    userData.payoutData.payoutType === "swift"
+                      ? "30 000 RUB"
+                      : "3 000 RUB"
                   }</div>
               `
                 : null
@@ -160,8 +162,9 @@ class HTElementsStatistics extends LitElement {
     if (userData && userData.payoutData) {
       if (
         (userData.payoutData.payoutType === "swift" &&
-          userData.balance >= 500) ||
-        (!userData.payoutData.payoutType !== "swift" && userData.balance >= 50)
+          userData.balance >= 30000) ||
+        (!userData.payoutData.payoutType !== "swift" &&
+          userData.balance >= 3000)
       )
         return true;
     }

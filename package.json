@@ -14,6 +14,7 @@
     "@01ht/ht-date": "01ht/ht-date",
     "@01ht/ht-spinner": "01ht/ht-spinner",
     "@01ht/ht-elements-orders": "01ht/ht-elements-orders",
+    "@01ht/ht-client-helper-functions": "01ht/ht-client-helper-functions",
     "@vaadin/vaadin-grid": "^5.2.3"
   }
 }
