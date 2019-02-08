@@ -1,5 +1,5 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 
 import "@polymer/paper-button/paper-button.js";
 
@@ -9,11 +9,9 @@ import { generateReport } from "./generateReport.js";
 import { callFirebaseHTTPFunction } from "@01ht/ht-client-helper-functions";
 
 class HTElementsStatisticsCommon extends LitElement {
-  render() {
-    const { data, payoutOrder, balance, opened, orderCreating } = this;
-    return html`
-    ${SharedStyles}
-    <style>
+  static styles = [
+    window.SharedStyles,
+    css`<style>
       :host {
         display: block;
         position: relative;
@@ -118,7 +116,12 @@ class HTElementsStatisticsCommon extends LitElement {
       [hidden] {
         display:none;
       }
-    </style>
+    </style>`
+  ];
+
+  render() {
+    const { data, payoutOrder, balance, opened, orderCreating } = this;
+    return html`
     <div id="container">
       ${
         payoutOrder && !payoutOrder.completed
@@ -131,14 +134,14 @@ class HTElementsStatisticsCommon extends LitElement {
           payoutOrder.statusText
         }</span></div>
         <div id="payout-reports-actions">
-          <paper-button raised ?disabled=${!payoutOrder.reportReady} @click=${_ => {
+          <paper-button raised ?disabled="${!payoutOrder.reportReady}" @click="${_ => {
               this._showReport(payoutOrder.orderId, payoutOrder.orderNumber);
-            }}>Посмотреть</paper-button>
-          <paper-button raised ?disabled=${!payoutOrder.reportReady} ?hidden=${
+            }}">Посмотреть</paper-button>
+          <paper-button raised ?disabled="${!payoutOrder.reportReady}" ?hidden="${
               payoutOrder.reportConfirmed
-            } @click=${_ => {
+            }" @click="${_ => {
               this._approveReport(payoutOrder.orderId);
-            }}>Утвердить</paper-button>
+            }}">Утвердить</paper-button>
         </div>
       </div>`
           : null
@@ -147,15 +150,15 @@ class HTElementsStatisticsCommon extends LitElement {
         <div id="balance"><span class="label">Баланс: </span><span class="value">${balance} RUB</span>
         ${
           !payoutOrder
-            ? html`<paper-button raised @click=${_ => {
+            ? html`<paper-button raised @click="${_ => {
                 this.opened = !this.opened;
-              }}>${opened ? "Закрыть" : "Выплатить"}</paper-button>`
+              }}">${opened ? "Закрыть" : "Выплатить"}</paper-button>`
             : null
         }
         </div>
         ${
           opened && !payoutOrder
-            ? html`<ht-elements-statistics-payout ?opened=${opened} .orderCreating=${orderCreating}></ht-elements-statistics-payout>`
+            ? html`<ht-elements-statistics-payout ?opened="${opened}" .orderCreating="${orderCreating}"></ht-elements-statistics-payout>`
             : null
         }
         <div id="sales"><span class="label">Продано: </span><span class="value">${
@@ -185,10 +188,6 @@ class HTElementsStatisticsCommon extends LitElement {
       </div>
     </div>
 `;
-  }
-
-  static get is() {
-    return "ht-elements-statistics-common";
   }
 
   static get properties() {
@@ -322,6 +321,6 @@ class HTElementsStatisticsCommon extends LitElement {
 }
 
 customElements.define(
-  HTElementsStatisticsCommon.is,
+  "ht-elements-statistics-common",
   HTElementsStatisticsCommon
 );

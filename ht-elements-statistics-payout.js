@@ -1,5 +1,5 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 
 import "@polymer/iron-iconset-svg/iron-iconset-svg.js";
 import "@polymer/iron-icon/iron-icon.js";
@@ -7,11 +7,9 @@ import "@polymer/paper-button/paper-button.js";
 import "@01ht/ht-spinner";
 
 class HTElementsStatistics extends LitElement {
-  render() {
-    const { userData, orderCreating, loading, contractActive } = this;
-    return html`
-    ${SharedStyles}
-    <style>
+  static styles = [
+    window.SharedStyles,
+    css`<style>
       :host {
         display: block;
         position: relative;
@@ -65,7 +63,12 @@ class HTElementsStatistics extends LitElement {
         display:flex;
         justify-content:flex-end;
       }
-    </style>
+    </style>`
+  ];
+
+  render() {
+    const { userData, orderCreating, loading, contractActive } = this;
+    return html`
     <iron-iconset-svg size="24" name="ht-elements-statistics-payout">
       <svg>
           <defs>
@@ -104,23 +107,19 @@ class HTElementsStatistics extends LitElement {
                 : null
             }
             <div id="actions">
-                <paper-button raised ?disabled=${!contractActive ||
+                <paper-button raised ?disabled="${!contractActive ||
                   !this.checkBalance(userData) ||
-                  !userData.payoutData} ?hidden=${orderCreating} @click=${_ => {
+                  !userData.payoutData}" ?hidden="${orderCreating}" @click="${_ => {
               this.createPayoutOrder();
-            }}>Создать
+            }}">Создать
                 </paper-button>
-                <ht-spinner button ?hidden=${!orderCreating}></ht-spinner>
+                <ht-spinner button ?hidden="${!orderCreating}"></ht-spinner>
             </div>
           </div>
       `
       }
     </div>
 `;
-  }
-
-  static get is() {
-    return "ht-elements-statistics-payout";
   }
 
   static get properties() {
@@ -227,4 +226,4 @@ class HTElementsStatistics extends LitElement {
   }
 }
 
-customElements.define(HTElementsStatistics.is, HTElementsStatistics);
+customElements.define("ht-elements-statistics-payout", HTElementsStatistics);

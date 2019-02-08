@@ -1,5 +1,5 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 import { render } from "lit-html";
 
 import "@polymer/iron-iconset-svg/iron-iconset-svg.js";
@@ -17,11 +17,9 @@ import "./ht-elements-statistics-common.js";
 import "@01ht/ht-elements-orders/ht-elements-orders-item-details.js";
 
 class HTElementsStatistics extends LitElement {
-  render() {
-    const { items, payoutOrder, balance, orderCreating } = this;
-    return html`
-    ${SharedStyles}
-    <style>
+  static styles = [
+    window.SharedStyles,
+    css`<style>
       :host {
         display: block;
         position: relative;
@@ -82,7 +80,12 @@ class HTElementsStatistics extends LitElement {
       padding: 8px 16px 0 16px;
       border: 1px solid #e8ebef;
      }
-    </style>
+    </style>`
+  ];
+
+  render() {
+    const { items, payoutOrder, balance, orderCreating } = this;
+    return html`
     <iron-iconset-svg size="24" name="ht-elements-statistics">
       <svg>
           <defs>
@@ -109,9 +112,9 @@ class HTElementsStatistics extends LitElement {
           ? html`<ht-elements-statistics-empty></ht-elements-statistics-empty>`
           : html`
           <h1 class="mdc-typography--headline5">Моя статистика</h1>
-          <ht-elements-statistics-common .balance=${balance} .items=${items} .payoutOrder=${payoutOrder} .orderCreating=${orderCreating}></ht-elements-statistics-common>
+          <ht-elements-statistics-common .balance="${balance}" .items="${items}" .payoutOrder="${payoutOrder}" .orderCreating="${orderCreating}"></ht-elements-statistics-common>
             <div id="table">
-                <vaadin-grid .items=${items} .rowDetailsRenderer="${
+                <vaadin-grid .items="${items}" .rowDetailsRenderer="${
               this.rowDetailsRenderer
             }">
                 <vaadin-grid-column width="100px" header="Сумма" .renderer="${
@@ -131,10 +134,6 @@ class HTElementsStatistics extends LitElement {
       }
     </div>
 `;
-  }
-
-  static get is() {
-    return "ht-elements-statistics";
   }
 
   static get properties() {
@@ -264,4 +263,4 @@ class HTElementsStatistics extends LitElement {
   }
 }
 
-customElements.define(HTElementsStatistics.is, HTElementsStatistics);
+customElements.define("ht-elements-statistics", HTElementsStatistics);
