@@ -6,65 +6,70 @@ import "@polymer/iron-icon/iron-icon.js";
 import "@polymer/paper-button/paper-button.js";
 import "@01ht/ht-spinner";
 
+import { styles } from "@01ht/ht-theme/styles";
+
 class HTElementsStatistics extends LitElement {
-  static styles = [
-    window.SharedStyles,
-    css`<style>
-      :host {
-        display: block;
-        position: relative;
-        box-sizing: border-box;
-      }
+  static get styles() {
+    return [
+      styles,
+      css`
+        :host {
+          display: block;
+          position: relative;
+          box-sizing: border-box;
+        }
 
-      h2 {
-        margin-top:0;
-        font-size: 18px;
-        font-weight:500;
-      }
+        h2 {
+          margin-top: 0;
+          font-size: 18px;
+          font-weight: 500;
+        }
 
-      iron-icon {
-        margin-right: 8px;
-        min-width:24px;
-      }
+        iron-icon {
+          margin-right: 8px;
+          min-width: 24px;
+        }
 
-      ht-spinner.loading {
-        margin: 64px 0;
-      }
+        ht-spinner.loading {
+          margin: 64px 0;
+        }
 
-      #container {
-        padding: 16px;
-        box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
-        font-size: 14px;
-      }
+        #container {
+          padding: 16px;
+          box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2),
+            0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+          font-size: 14px;
+        }
 
-      .item {
-        display:flex;
-        align-items:center;
-        margin-bottom: 4px;
-      }
+        .item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+        }
 
-      [icon="ht-elements-statistics-payout:check"] {
-        color:var(--accent-color);
-      }
+        [icon="ht-elements-statistics-payout:check"] {
+          color: var(--accent-color);
+        }
 
-      [icon="ht-elements-statistics-payout:close"] {
-        color:#d22f2f;
-      }
+        [icon="ht-elements-statistics-payout:close"] {
+          color: #d22f2f;
+        }
 
-      [disabled] {
+        [disabled] {
           background: #ccc;
-      }
+        }
 
-      [hidden] {
-        display:none;
-      }
+        [hidden] {
+          display: none;
+        }
 
-      #actions {
-        display:flex;
-        justify-content:flex-end;
-      }
-    </style>`
-  ];
+        #actions {
+          display: flex;
+          justify-content: flex-end;
+        }
+      `
+    ];
+  }
 
   render() {
     const { userData, orderCreating, loading, contractActive } = this;

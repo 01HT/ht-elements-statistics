@@ -8,117 +8,120 @@ import { generateReport } from "./generateReport.js";
 
 import { callFirebaseHTTPFunction } from "@01ht/ht-client-helper-functions";
 
+import { styles } from "@01ht/ht-theme/styles";
+
 class HTElementsStatisticsCommon extends LitElement {
-  static styles = [
-    window.SharedStyles,
-    css`<style>
-      :host {
-        display: block;
-        position: relative;
-        box-sizing: border-box;
-      }
+  static get styles() {
+    return [
+      styles,
+      css`
+        :host {
+          display: block;
+          position: relative;
+          box-sizing: border-box;
+        }
 
-      paper-button {
-        height:24px;
-        min-height: 24px;
-        font-size: .775rem;
-        padding: 0 8px;
-      }
+        paper-button {
+          height: 24px;
+          min-height: 24px;
+          font-size: 0.775rem;
+          padding: 0 8px;
+        }
 
-      #container ht-elements-statistics-payout {
-        margin: 8px 0 16px 0;
-      }
+        #container ht-elements-statistics-payout {
+          margin: 8px 0 16px 0;
+        }
 
-      #container {
-        display: flex;
-        flex-direction: column;
-        font-size: 14px;
-      }
+        #container {
+          display: flex;
+          flex-direction: column;
+          font-size: 14px;
+        }
 
-      #container > * {
-        margin-bottom: 16px;
-      }
+        #container > * {
+          margin-bottom: 16px;
+        }
 
-      #info > * {
-        margin-bottom: 8px;
-      }
+        #info > * {
+          margin-bottom: 8px;
+        }
 
-      #info > *:last-child {
-        margin-bottom: 0;
-      }
+        #info > *:last-child {
+          margin-bottom: 0;
+        }
 
-      .value {
-        font-weight: 600;
-      }
+        .value {
+          font-weight: 600;
+        }
 
-      .sub-tax {
-        font-size: 14px;
-      }
+        .sub-tax {
+          font-size: 14px;
+        }
 
-      #tax {
-        border-left: 3px solid var(--accent-color);
-        padding:  4px 16px;
-      }
+        #tax {
+          border-left: 3px solid var(--accent-color);
+          padding: 4px 16px;
+        }
 
-      .title {
-        margin-top: 8px;
-        color: var(--secondary-text-color);
-        margin-bottom: 4px;
-      }
+        .title {
+          margin-top: 8px;
+          color: var(--secondary-text-color);
+          margin-bottom: 4px;
+        }
 
-      .title:first-child {
-        margin-top: 0;
-      }
+        .title:first-child {
+          margin-top: 0;
+        }
 
-      #balance {
-        display:flex;
-        align-items:center;
-      }
+        #balance {
+          display: flex;
+          align-items: center;
+        }
 
-      #balance .value {
-        margin-right: 8px;
-        margin-left: 4px;
-      }
+        #balance .value {
+          margin-right: 8px;
+          margin-left: 4px;
+        }
 
-      .equivalent {
-        color: var(--secondary-text-color);
-        font-weight: 400;
-      }
+        .equivalent {
+          color: var(--secondary-text-color);
+          font-weight: 400;
+        }
 
-      #payout-actions {
-        padding: 8px;
-        background: #f5f5b4;
-        border-radius: 4px;
-        padding: 16px;
-        font-size: 14px;
-      }
-      
-      .payout-status {
-        margin-top: 6px;
-      }
+        #payout-actions {
+          padding: 8px;
+          background: #f5f5b4;
+          border-radius: 4px;
+          padding: 16px;
+          font-size: 14px;
+        }
 
-      #payout-reports-actions {
-        margin-top: 8px;
-      }
+        .payout-status {
+          margin-top: 6px;
+        }
 
-      #payout-reports-actions paper-button {
-        margin-right: 8px;
-      }
+        #payout-reports-actions {
+          margin-top: 8px;
+        }
 
-      .payout-status span {
-        font-weight: 500;
-      }
+        #payout-reports-actions paper-button {
+          margin-right: 8px;
+        }
 
-      [disabled] {
+        .payout-status span {
+          font-weight: 500;
+        }
+
+        [disabled] {
           background: #ccc;
-      }
+        }
 
-      [hidden] {
-        display:none;
-      }
-    </style>`
-  ];
-
+        [hidden] {
+          display: none;
+        }
+      `
+    ];
+  }
   render() {
     const { data, payoutOrder, balance, opened, orderCreating } = this;
     return html`

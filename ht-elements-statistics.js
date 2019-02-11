@@ -16,72 +16,70 @@ import "./ht-elements-statistics-common.js";
 
 import "@01ht/ht-elements-orders/ht-elements-orders-item-details.js";
 
+import { styles } from "@01ht/ht-theme/styles";
+
 class HTElementsStatistics extends LitElement {
-  static styles = [
-    window.SharedStyles,
-    css`<style>
-      :host {
-        display: block;
-        position: relative;
-        box-sizing: border-box;
-      }
+  static get styles() {
+    return [
+      styles,
+      css`
+        vaadin-grid {
+          height: 100%;
+        }
 
-      vaadin-grid {
-        height: 100%;
-      }
+        iron-icon {
+          min-width: 20px;
+          min-height: 20px;
+          width: 20px;
+          height: 20px;
+        }
 
-      iron-icon {
-        min-width: 20px;
-        min-height: 20px;
-        width: 20px;
-        height: 20px;
-      }
+        ht-elements-statistics-common {
+          margin-top: 16px;
+        }
 
-      ht-elements-statistics-common {
-        margin-top: 16px;
-      }
+        #container {
+          margin-top: 32px;
+        }
 
-      #container {
-        margin-top: 32px;
-      }
+        #table {
+          height: calc(100vh - 264px);
+          margin-top: 8px;
+        }
 
-      #table {
-        height: calc(100vh - 264px);
-        margin-top: 8px;
-     }
+        .type {
+          display: flex;
+          align-items: center;
+          position: relative;
+        }
 
-     .type {
-        display:flex;
-        align-items:center;
-        position:relative;
-     }
+        .type iron-icon {
+          margin-right: 4px;
+        }
 
-     .type iron-icon {
-        margin-right: 4px;    
-     }
+        .amount {
+          font-weight: 500;
+          font-size: 13px;
+        }
 
-     .amount {
-        font-weight: 500;
-        font-size: 13px;
-     }
+        .amount.green {
+          color: var(--accent-color);
+        }
 
-     .amount.green {
-        color: var(--accent-color);
-     }
+        .positive {
+          color: var(--accent-color);
+        }
 
-     .positive {
-        color: var(--accent-color);
-     }
-
-     .details {
-      display: flex;
-      height: 128px;
-      overflow: auto;
-      padding: 8px 16px 0 16px;
-      border: 1px solid #e8ebef;
-     }
-    </style>`
-  ];
+        .details {
+          display: flex;
+          height: 128px;
+          overflow: auto;
+          padding: 8px 16px 0 16px;
+          border: 1px solid #e8ebef;
+        }
+      `
+    ];
+  }
 
   render() {
     const { items, payoutOrder, balance, orderCreating } = this;
