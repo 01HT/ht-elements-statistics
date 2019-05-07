@@ -15,7 +15,8 @@ class HTElementsStatisticsEmpty extends LitElement {
           box-sizing: border-box;
         }
 
-        a {
+        a,
+        a:hover {
           color: inherit;
           text-decoration: none;
         }
