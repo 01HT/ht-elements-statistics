@@ -53,7 +53,7 @@ class HTElementsStatisticsEmpty extends LitElement {
     return html`
     <div id="container">
         <img src="${
-          window.cloudinaryURL
+          window.appConfig.cloudinary.url
         }/image/upload/v1541516058/apps/elements/pages/my-orders/empty.svg" alt="No sales">
         <div id="text" class="mdc-typography--headline5">У вас пока нет продаж</div>
         <div id="sub-text">
