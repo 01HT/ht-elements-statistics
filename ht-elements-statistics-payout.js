@@ -89,14 +89,14 @@ class HTElementsStatistics extends LitElement {
           : html`
           <div id="info">
             <h2>Создание заказа на выплату</h2>
-            <p>Выплаты осуществляются с 1 по 10 число месяца. (<a href="https://docs.elements.01.ht/guide/payout" target="_blank" rel="noopener">о выплатах</a>)</p>
+            <p>Выплаты осуществляются с 1 по 10 число месяца. (<a href="https://docs.elements.01.ht/guide/remuneration/" target="_blank" rel="noopener">о выплатах</a>)</p>
             <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
               contractActive ? "check" : "close"
-            }"></iron-icon><div><a href="/account/contract">Агентский договор</a></div>
+            }"></iron-icon><div><a href="/contract">Агентский договор</a></div>
             </div>
             <div class="item"><iron-icon icon="ht-elements-statistics-payout:${
               userData.payoutData ? "check" : "close"
-            }"></iron-icon><div><a href="/account/payout">Настройки выплат</a></div>
+            }"></iron-icon><div><a href="/payout">Настройки выплат</a></div>
             </div>
             ${
               userData.payoutData
